@@ -1,9 +1,11 @@
-import { HomeContainer } from './styled'
+import { ProfileContainer } from './styled'
 
 export function Home() {
   return (
-    <HomeContainer>
-      <h1>Github Blog</h1>
-    </HomeContainer>
+    <div>
+      <ProfileContainer>
+        <h1>Github Blog</h1>
+      </ProfileContainer>
+    </div>
   )
 }

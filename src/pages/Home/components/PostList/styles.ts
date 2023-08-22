@@ -70,7 +70,8 @@ export const PostListIterator = styled.div`
       }
     }
 
-    p {
+    @media (max-width: 945px) {
+      max-width: none;
     }
   }
 `

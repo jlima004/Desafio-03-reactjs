@@ -55,6 +55,11 @@ export const HeaderContainer = styled.header`
 
     background: rgba(20, 88, 156, 0.7);
     filter: blur(6rem);
+
+    @media (max-width: 925px) {
+      width: 100%;
+      left: auto;
+    }
   }
 
   img.logo {

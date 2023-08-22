@@ -3,7 +3,7 @@ import { styled } from 'styled-components'
 export const HeaderContainer = styled.header`
   height: 18.5rem;
   position: absolute;
-  width: 100vw;
+  width: 100%;
   background: ${(props) => props.theme['base-profile']};
 
   img.leftEffect {

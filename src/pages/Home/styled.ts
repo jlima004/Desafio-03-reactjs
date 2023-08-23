@@ -24,6 +24,8 @@ export const ProfileContainer = styled.div`
   border-radius: 10px;
   background: ${(props) => props.theme['base-profile']};
 
+  filter: drop-shadow(1px 3px 6px rgba(4, 15, 26, 0.8));
+
   > div {
     display: flex;
     flex-direction: row;

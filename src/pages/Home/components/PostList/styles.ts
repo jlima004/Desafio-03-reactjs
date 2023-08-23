@@ -44,34 +44,52 @@ export const PostListIterator = styled.div`
   flex-wrap: wrap;
   gap: 2rem;
 
-  div.postCard {
-    max-width: 26rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    padding: 2rem;
+  a {
+    text-decoration: none;
 
-    background: ${(props) => props.theme['base-post']};
-    border: 0;
-    border-radius: 10px;
-
-    div.cardTitle {
+    div.postCard {
+      max-width: 26rem;
       display: flex;
-      gap: 1rem;
+      flex-direction: column;
+      gap: 1.25rem;
+      padding: 2rem;
 
-      strong {
-        font-size: 1.25rem;
-        color: ${(props) => props.theme['base-title']};
-      }
-      span {
-        font-size: 0.875rem;
-        text-wrap: nowrap;
-        color: ${(props) => props.theme['base-span']};
-      }
-    }
+      background: ${(props) => props.theme['base-post']};
+      border: 2px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
 
-    @media (max-width: 945px) {
-      max-width: none;
+      transition: border-color 0.3s;
+
+      &:hover {
+        border-color: ${(props) => props.theme['base-label']};
+      }
+
+      div.cardTitle {
+        display: flex;
+        gap: 1rem;
+
+        strong {
+          font-size: 1.25rem;
+          color: ${(props) => props.theme['base-title']};
+        }
+        span {
+          font-size: 0.875rem;
+          text-wrap: nowrap;
+          color: ${(props) => props.theme['base-span']};
+        }
+      }
+
+      p.postCardContent {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.6;
+        color: ${(props) => props.theme['base-text']};
+      }
+
+      @media (max-width: 945px) {
+        max-width: none;
+      }
     }
   }
 `

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { PostListConatiner, PostListIterator } from './styles'
 
 const cardContentText = `Programming languages all have built-in data structures, but these
@@ -21,17 +23,19 @@ export function PostList() {
 
       <PostListIterator>
         {[1, 2, 3, 4, 5, 6].map((post) => (
-          <div key={post} className="postCard">
-            <div className="cardTitle">
-              <strong>JavaScript data types and data structures</strong>
-              <span>Há 1 dia</span>
+          <Link key={post} to={'/post'}>
+            <div className="postCard">
+              <div className="cardTitle">
+                <strong>JavaScript data types and data structures</strong>
+                <span>Há 1 dia</span>
+              </div>
+              <p className="postCardContent">
+                {cardContentText.length > 181
+                  ? cardContentText.slice(0, 181) + '...'
+                  : cardContentText}
+              </p>
             </div>
-            <p>
-              {cardContentText.length > 181
-                ? cardContentText.slice(0, 181) + '...'
-                : cardContentText}
-            </p>
-          </div>
+          </Link>
         ))}
       </PostListIterator>
     </PostListConatiner>

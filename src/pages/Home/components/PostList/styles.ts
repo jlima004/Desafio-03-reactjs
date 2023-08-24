@@ -48,52 +48,51 @@ export const PostListIterator = styled.div`
   flex-wrap: wrap;
   gap: 2rem;
 
-  a {
-    text-decoration: none;
+  text-decoration: none;
 
-    div.postCard {
-      max-width: 26rem;
+  div.postCard {
+    max-width: 26rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 2rem;
+
+    background: ${(props) => props.theme['base-post']};
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+
+    transition: border-color 0.3s;
+
+    &:hover {
+      border-color: ${(props) => props.theme['base-label']};
+    }
+
+    div.cardTitle {
       display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      padding: 2rem;
+      justify-content: space-between;
+      gap: 1rem;
 
-      background: ${(props) => props.theme['base-post']};
-      border: 2px solid transparent;
-      border-radius: 10px;
-      cursor: pointer;
-
-      transition: border-color 0.3s;
-
-      &:hover {
-        border-color: ${(props) => props.theme['base-label']};
+      strong {
+        font-size: 1.25rem;
+        color: ${(props) => props.theme['base-title']};
       }
-
-      div.cardTitle {
-        display: flex;
-        gap: 1rem;
-
-        strong {
-          font-size: 1.25rem;
-          color: ${(props) => props.theme['base-title']};
-        }
-        span {
-          font-size: 0.875rem;
-          text-wrap: nowrap;
-          color: ${(props) => props.theme['base-span']};
-        }
+      span {
+        font-size: 0.875rem;
+        text-wrap: nowrap;
+        color: ${(props) => props.theme['base-span']};
       }
+    }
 
-      p.postCardContent {
-        font-size: 1rem;
-        font-weight: 400;
-        line-height: 1.6;
-        color: ${(props) => props.theme['base-text']};
-      }
+    div.postCardContent {
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.6;
+      color: ${(props) => props.theme['base-text']};
+    }
 
-      @media (max-width: 945px) {
-        max-width: none;
-      }
+    @media (max-width: 945px) {
+      max-width: none;
     }
   }
 `

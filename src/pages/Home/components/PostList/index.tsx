@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import remarkGfm from 'remark-gfm'
 import { format, formatDistanceToNow } from 'date-fns'
@@ -20,6 +20,8 @@ type searchIssuesInputs = z.infer<typeof searchIssuesSchema>
 
 export function PostList() {
   const { issues, fetchIssues } = useContext(BlogContext)
+
+  const navigate = useNavigate()
 
   const {
     register,
@@ -50,9 +52,18 @@ export function PostList() {
       </form>
 
       <PostListIterator>
-        {issues.map((post) => (
-          <Link key={post.number} to={`/post/${post.number}`}>
-            <div className="postCard">
+        {issues.map((post) => {
+          const markdown =
+            post.body && post.body.length > 181
+              ? post.body.slice(0, 181) + '...'
+              : post.body
+
+          return (
+            <div
+              key={post.number}
+              className="postCard"
+              onClick={() => navigate(`/post/${post.number}`)}
+            >
               <div className="cardTitle">
                 <strong>{post.title}</strong>
                 <span
@@ -70,16 +81,15 @@ export function PostList() {
                   })}
                 </span>
               </div>
-              <p className="postCardContent">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {post.body && post.body.length > 181
-                    ? post.body.slice(0, 181) + '...'
-                    : post.body}
-                </ReactMarkdown>
-              </p>
+              <ReactMarkdown
+                className="postCardContent"
+                remarkPlugins={[remarkGfm]}
+              >
+                {markdown}
+              </ReactMarkdown>
             </div>
-          </Link>
-        ))}
+          )
+        })}
       </PostListIterator>
     </PostListConatiner>
   )

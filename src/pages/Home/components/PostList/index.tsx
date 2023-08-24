@@ -1,38 +1,81 @@
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+import remarkGfm from 'remark-gfm'
+import { format, formatDistanceToNow } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+import { BlogContext } from '../../../../contexts/BlogContext'
 
 import { PostListConatiner, PostListIterator } from './styles'
 
-const cardContentText = `Programming languages all have built-in data structures, but these
-often differ from one language to another. This article attempts to
-list the built-in data structures available in JavaScript and what
-properties they have. These can be used to build other data
-structures. Wherever possible, comparisons with other languages are
-drawn.`
+const searchIssuesSchema = z.object({
+  query: z.string(),
+})
+
+type searchIssuesInputs = z.infer<typeof searchIssuesSchema>
 
 export function PostList() {
+  const { issues, fetchIssues } = useContext(BlogContext)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<searchIssuesInputs>({
+    resolver: zodResolver(searchIssuesSchema),
+  })
+
+  function handleSearchIssuesSubmitted(data: searchIssuesInputs) {
+    fetchIssues(data.query)
+  }
+
   return (
     <PostListConatiner>
       <div className="postListHeader">
         <strong>Publicações</strong>
-        <span>6 publicações</span>
+        <span>{issues.length} publicações</span>
       </div>
 
-      <form>
-        <input type="text" placeholder="Buscar conteúdo" />
+      <form onSubmit={handleSubmit(handleSearchIssuesSubmitted)}>
+        <input
+          type="text"
+          placeholder="Buscar conteúdo"
+          {...register('query')}
+          disabled={isSubmitting}
+        />
       </form>
 
       <PostListIterator>
-        {[1, 2, 3, 4, 5, 6].map((post) => (
-          <Link key={post} to={'/post'}>
+        {issues.map((post) => (
+          <Link key={post.number} to={`/post/${post.number}`}>
             <div className="postCard">
               <div className="cardTitle">
-                <strong>JavaScript data types and data structures</strong>
-                <span>Há 1 dia</span>
+                <strong>{post.title}</strong>
+                <span
+                  title={format(
+                    new Date(post.created_at),
+                    "dd 'de' MMMM 'de' yyyy",
+                    {
+                      locale: ptBR,
+                    },
+                  )}
+                >
+                  {formatDistanceToNow(new Date(post.created_at), {
+                    addSuffix: true,
+                    locale: ptBR,
+                  })}
+                </span>
               </div>
               <p className="postCardContent">
-                {cardContentText.length > 181
-                  ? cardContentText.slice(0, 181) + '...'
-                  : cardContentText}
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {post.body && post.body.length > 181
+                    ? post.body.slice(0, 181) + '...'
+                    : post.body}
+                </ReactMarkdown>
               </p>
             </div>
           </Link>

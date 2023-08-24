@@ -30,6 +30,10 @@ export const PostListConatiner = styled.div`
       color: ${(props) => props.theme['base-text']};
       border: 1px solid ${(props) => props.theme['base-border']};
       border-radius: 6px;
+
+      &:disabled {
+        cursor: not-allowed;
+      }
     }
 
     ::placeholder {

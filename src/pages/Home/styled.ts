@@ -35,6 +35,8 @@ export const ProfileContainer = styled.div`
     img.avatar {
       max-width: 9.25rem;
       max-height: 9.25rem;
+      border: 0;
+      border-radius: 8px;
 
       @media (max-width: 570px) {
         max-width: 7rem;
@@ -43,6 +45,7 @@ export const ProfileContainer = styled.div`
     }
 
     div.profileContent {
+      width: 100%;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
